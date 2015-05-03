@@ -1,6 +1,7 @@
 
 from lxml import etree
 
+
 def load_xml(xml_filename):
     xml_file = open(xml_filename, "rb")
     tree = etree.parse(xml_file)
@@ -15,7 +16,7 @@ def print_elem(element):
 
 
 def parse_kdb_xml(kdb_xml):
-    elements = [] 
+    elements = []
     root = kdb_xml.getroot()
     db_iter = iter(root)
     return dict((x, y) for x, y in parse_elements(db_iter))
@@ -36,7 +37,7 @@ def parse_group(group):
     icon = group.find("icon").text
     children = parse_elements(tuple(x for x in iter(group) if x.tag in ["group", "entry"]))
     children_dict = dict((x, y) for x, y in children)
-    return (title, {"title": title, "icon": icon, "children": children_dict})
+    return (title, {"tag": "group", "title": title, "icon": icon, "children": children_dict})
 
 
 def parse_entry(entry):
@@ -72,6 +73,7 @@ def parse_entry(entry):
     """
     title = entry.find("title").text
     properties = dict((node.tag, node.text) for node in entry)
+    properties.update({"tag": "entry"})
     return (title, properties)
 
 
