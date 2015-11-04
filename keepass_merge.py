@@ -2,6 +2,10 @@
 
 # requires: keepassdb
 
+__author__  = 'haxwithaxe <spam@haxwithaxe.net>'
+__license__ = 'GPLv3'
+
+
 import json
 import logging
 
